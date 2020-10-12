@@ -78,12 +78,12 @@ public class NBody {
                     planets[i].yyVel, planets[i].mass, planets[i].imgFileName);
         }
     }
-    public static void drawAllPlanets(Planet[] planets){
+    private static void drawAllPlanets(Planet[] planets){
         for (int i = 0; i < planets.length; i++) {
             planets[i].draw();
         }
     }
-    public static void setStarField(double radius){
+    private static void setStarField(double radius){
         StdDraw.setScale(-radius,radius);
         StdDraw.clear();
         StdDraw.picture(0, 0, "./images/starfield.jpg");
