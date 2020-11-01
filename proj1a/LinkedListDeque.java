@@ -18,11 +18,11 @@ public class LinkedListDeque<Barca> {
             q = q.pre;
         }
     }
-    public class ListNode {
+    private class ListNode {
         public ListNode pre;
         public Barca item;
         public ListNode next;
-        public ListNode(){};
+        public ListNode(){}
         public ListNode(ListNode pre, Barca item, ListNode next){
             this.pre = pre;
             this.item = item;

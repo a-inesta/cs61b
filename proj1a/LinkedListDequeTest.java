@@ -45,27 +45,27 @@ public class LinkedListDequeTest {
 		System.out.println("Running add/isEmpty/Size test.");
 		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 
-				LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
+		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
-				boolean passed = checkEmpty(true, lld1.isEmpty());
+		boolean passed = checkEmpty(true, lld1.isEmpty());
 
-				lld1.addFirst("front");
+		lld1.addFirst("front");
 
-				// The && operator is the same as "and" in Python.
-				// It's a binary operator that returns true if both arguments true, and false otherwise.
-				passed = checkSize(1, lld1.size()) && passed;
-				passed = checkEmpty(false, lld1.isEmpty()) && passed;
+		// The && operator is the same as "and" in Python.
+		// It's a binary operator that returns true if both arguments true, and false otherwise.
+		passed = checkSize(1, lld1.size()) && passed;
+		passed = checkEmpty(false, lld1.isEmpty()) && passed;
 
-				lld1.addLast("middle");
-				passed = checkSize(2, lld1.size()) && passed;
+		lld1.addLast("middle");
+		passed = checkSize(2, lld1.size()) && passed;
 
-				lld1.addLast("back");
-				passed = checkSize(3, lld1.size()) && passed;
+		lld1.addLast("back");
+		passed = checkSize(3, lld1.size()) && passed;
 
-				System.out.println("Printing out deque: ");
-				lld1.printDeque();
+		System.out.println("Printing out deque: ");
+		lld1.printDeque();
 
-				printTestStatus(passed);
+		printTestStatus(passed);
 
 	}
 
@@ -76,49 +76,49 @@ public class LinkedListDequeTest {
 
 		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 
-				LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-				// should be empty
-				boolean passed = checkEmpty(true, lld1.isEmpty());
+		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+		// should be empty
+		boolean passed = checkEmpty(true, lld1.isEmpty());
 
-				lld1.addFirst(10);
-				// should not be empty
-				passed = checkEmpty(false, lld1.isEmpty()) && passed;
+		lld1.addFirst(10);
+		// should not be empty
+		passed = checkEmpty(false, lld1.isEmpty()) && passed;
 
-				lld1.removeFirst();
-				// should be empty
-				passed = checkEmpty(true, lld1.isEmpty()) && passed;
+		lld1.removeFirst();
+		// should be empty
+		passed = checkEmpty(true, lld1.isEmpty()) && passed;
 
-				printTestStatus(passed);
+		printTestStatus(passed);
 
 	}
 	public static void addGetTest(){
 		System.out.println("Running add/remove test.");
 
 		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-				LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
-				// should be empty
-				boolean passed = checkEmpty(true, lld1.isEmpty());
+		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
+		// should be empty
+		boolean passed = checkEmpty(true, lld1.isEmpty());
 
-				lld1.addFirst(10);
-				lld1.addFirst(20);
-				lld1.addFirst(30);
-				// should not be empty
-				passed = checkEmpty(false, lld1.isEmpty()) && passed;
+		lld1.addFirst(10);
+		lld1.addFirst(20);
+		lld1.addFirst(30);
+		// should not be empty
+		passed = checkEmpty(false, lld1.isEmpty()) && passed;
 
-				// should be 10
-				passed = checkGet(10,lld1.get(2)) && passed;
-				// should be 20
-				passed = checkGet(20,lld1.get(1)) && passed;
-				// should be 30
-				passed = checkGet(30,lld1.get(0)) && passed;
-				// should be null
-				passed = lld1.get(4) == null && passed;
+		// should be 10
+		passed = checkGet(10,lld1.get(2)) && passed;
+		// should be 20
+		passed = checkGet(20,lld1.get(1)) && passed;
+		// should be 30
+		passed = checkGet(30,lld1.get(0)) && passed;
+		// should be null
+		passed = lld1.get(4) == null && passed;
 
-				// should be empty
-				passed = checkEmpty(false, lld1.isEmpty()) && passed;
+		// should be empty
+		passed = checkEmpty(false, lld1.isEmpty()) && passed;
 
 
-				printTestStatus(passed);
+		printTestStatus(passed);
 	}
 
 	public static void main(String[] args) {

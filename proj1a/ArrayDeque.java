@@ -1,7 +1,7 @@
-public class ArrayDeque<Barca> {
-    public int size = 0;
-    public Barca[] items = (Barca[]) new Object[8];
-    public int startPos;
+public class ArrayDeque<T> {
+    private int size = 0;
+    private T[] items = (T[]) new Object[8];
+    private int startPos;
     private double r;
     private int nextLast;
     private int nextFirst;
@@ -17,7 +17,7 @@ public class ArrayDeque<Barca> {
         this.r = other.r;
         this.nextFirst = other.nextFirst;
         this.nextLast = other.nextLast;
-        Barca[] temps = (Barca[]) new Object[other.items.length];
+        T[] temps = (T[]) new Object[other.items.length];
         System.arraycopy(other.items,0,temps,0,other.items.length);
         items = temps;
     }
@@ -26,43 +26,41 @@ public class ArrayDeque<Barca> {
      * @param pos
      * @return
      */
-    public Barca get(int pos){
+    public T get(int pos){
         return items[pos];
     }
     /**
      * Remove the last item of the array and dec size.
      * @return the removed item.
      */
-    public Barca removeLast(){
+    public T removeLast(){
         if(nextLast - 1 == nextFirst){
             return null;
         }
         int last = (nextLast - 1 + items.length) % items.length;
-        Barca val = items[last];
+        T val = items[last];
         items[last] = null;
         nextLast = last;
         size -= 1;
         calR();
         return val;
-
     }
 
     /**
      * Remove the first item of the array and dec size.
      * @return
      */
-    public Barca removeFirst(){
+    public T removeFirst(){
         if(nextFirst + 1 == nextLast){
             return null;
         }
         int first = (nextFirst + 1 + items.length) % items.length;
-        Barca val = items[first];
+        T val = items[first];
         items[first] = null;
         nextFirst = first;
         size -= 1;
         calR();
         return val;
-
     }
 
     /**
@@ -97,16 +95,14 @@ public class ArrayDeque<Barca> {
      * Add the item at the last of the array and inc size.
      * @param item which is need to add
      */
-    public void addLast(Barca item){
-
+    public void addLast(T item){
         items[nextLast] = item;
         nextLast = (nextLast + 1) % items.length;
         size += 1;
         calR();
     }
 
-    public void addFirst(Barca item){
-
+    public void addFirst(T item){
         items[nextFirst] = item;
         nextFirst = (nextFirst + 1) % items.length;
         size += 1;
@@ -121,7 +117,7 @@ public class ArrayDeque<Barca> {
      * @param capacity:the length of the new items[] array
      */
     private void resize(int capacity){
-        Barca[] temps =(Barca[])new Object[capacity];
+        T[] temps =(T[])new Object[capacity];
         System.arraycopy(items,0,temps,0,size);
         items = temps;
         calR();
