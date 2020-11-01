@@ -1,12 +1,12 @@
 public class ArrayDeque<T> {
     private int size = 0;
     private T[] items = (T[]) new Object[8];
-    private int startPos;
+    private int startPos = 4;
     private double r;
     private int nextLast;
     private int nextFirst;
-    public ArrayDeque(int startPos){
-        this.startPos = startPos;
+    public ArrayDeque(){
+
         nextFirst = (startPos - 1 + items.length) % items.length;
         nextLast = (startPos + 1 + items.length) % items.length;
         calR();
