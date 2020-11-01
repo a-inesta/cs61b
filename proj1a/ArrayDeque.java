@@ -1,19 +1,13 @@
 public class ArrayDeque<T> {
     private int size = 0;
     private T[] items = (T[]) new Object[8];
-    private int startPos = 4;
     private double r;
-    private int nextLast;
-    private int nextFirst;
+    private int nextLast = 4;
+    private int nextFirst = 3;
     public ArrayDeque(){
-
-        nextFirst = (startPos - 1 + items.length) % items.length;
-        nextLast = (startPos + 1 + items.length) % items.length;
-        calR();
     }
     public ArrayDeque(ArrayDeque other){
         this.size = other.size;
-        this.startPos = other.startPos;
         this.r = other.r;
         this.nextFirst = other.nextFirst;
         this.nextLast = other.nextLast;
@@ -34,15 +28,17 @@ public class ArrayDeque<T> {
      * @return the removed item.
      */
     public T removeLast(){
-        if(nextLast - 1 == nextFirst){
+        if(minusOne(nextLast) == nextFirst){
             return null;
         }
-        int last = (nextLast - 1 + items.length) % items.length;
-        T val = items[last];
-        items[last] = null;
-        nextLast = last;
+        T val = items[minusOne(nextLast)];
+        items[minusOne(nextLast)] = null;
+        nextLast = minusOne(nextLast);
         size -= 1;
         calR();
+        if(r < 0.25 && items.length > 15){
+            resize(items.length / 2);
+        }
         return val;
     }
 
@@ -51,15 +47,17 @@ public class ArrayDeque<T> {
      * @return
      */
     public T removeFirst(){
-        if(nextFirst + 1 == nextLast){
+        if(plusOne(nextFirst) == nextLast){
             return null;
         }
-        int first = (nextFirst + 1 + items.length) % items.length;
-        T val = items[first];
-        items[first] = null;
-        nextFirst = first;
+        T val = items[plusOne(nextFirst)];
+        items[plusOne(nextFirst)] = null;
+        nextFirst = plusOne(nextFirst);
         size -= 1;
         calR();
+        if(r < 0.25 && items.length > 15){
+            resize(items.length / 2);
+        }
         return val;
     }
 
@@ -86,7 +84,7 @@ public class ArrayDeque<T> {
      * Print the elements stored in the Deque.
      */
     public void printDeque(){
-        for (int i = (nextFirst + 1) % items.length; i < nextLast; i = (i + 1) % items.length) {
+        for (int i = plusOne(nextFirst); i < nextLast; i = plusOne(i)) {
             System.out.print(items[i] + " ");
         }
         System.out.println();
@@ -96,17 +94,29 @@ public class ArrayDeque<T> {
      * @param item which is need to add
      */
     public void addLast(T item){
+        if(plusOne(nextLast) == nextFirst){
+            return;
+        }
         items[nextLast] = item;
-        nextLast = (nextLast + 1) % items.length;
+        nextLast = plusOne(nextLast);
         size += 1;
         calR();
+        if(r > 0.75){
+            resize(items.length * 3 / 2);
+        }
     }
 
     public void addFirst(T item){
+        if(minusOne(nextFirst) == nextLast){
+            return;
+        }
         items[nextFirst] = item;
-        nextFirst = (nextFirst + 1) % items.length;
+        nextFirst = minusOne(nextFirst);
         size += 1;
         calR();
+        if(r > 0.75){
+            resize(items.length * 3 / 2);
+        }
     }
     public void calR(){
         r = (double)size/items.length;
@@ -118,8 +128,21 @@ public class ArrayDeque<T> {
      */
     private void resize(int capacity){
         T[] temps =(T[])new Object[capacity];
-        System.arraycopy(items,0,temps,0,size);
+        if(minusOne(nextFirst)>nextLast){
+            System.arraycopy(items,nextFirst,temps,0,size);
+        }else{
+            System.arraycopy(items,nextFirst,temps,0,size - nextLast + 1);
+            System.arraycopy(items,0,temps,size - nextLast + 1,nextLast);
+        }
         items = temps;
-        calR();
+        nextLast = size + 1;
+        nextFirst = 0;
+        return;
+    }
+    private int minusOne(int pos){
+        return (pos - 1 + items.length)%items.length;
+    }
+    private int plusOne(int pos){
+        return (pos + 1)%items.length;
     }
 }

@@ -1,4 +1,4 @@
-public class LinkedListDeque<Barca> {
+public class LinkedListDeque<T> {
     private int size;
     private final ListNode sentinel = new ListNode();
 
@@ -20,24 +20,24 @@ public class LinkedListDeque<Barca> {
     }
     private class ListNode {
         public ListNode pre;
-        public Barca item;
+        public T item;
         public ListNode next;
         public ListNode(){}
-        public ListNode(ListNode pre, Barca item, ListNode next){
+        public ListNode(ListNode pre, T item, ListNode next){
             this.pre = pre;
             this.item = item;
             this.next = next;
         }
     }
 
-    public void addFirst(Barca item){
+    public void addFirst(T item){
         ListNode start = new ListNode(sentinel, item, sentinel.next);
         sentinel.next = start;
         start.next.pre = start;
         size += 1;
     }
 
-    public void addLast(Barca item){
+    public void addLast(T item){
         ListNode end = new ListNode(sentinel.pre,item,sentinel);
         sentinel.pre = end;
         end.pre.next = end;
@@ -57,7 +57,7 @@ public class LinkedListDeque<Barca> {
         }
         System.out.println();
     }
-    public Barca removeFirst(){
+    public T removeFirst(){
         if(sentinel.next == sentinel){
             return null;
         }
@@ -66,7 +66,7 @@ public class LinkedListDeque<Barca> {
         sentinel.next = first.next;
         return first.item;
     }
-    public Barca removeLast(){
+    public T removeLast(){
         if(sentinel.next == sentinel){
             return null;
         }
@@ -75,7 +75,7 @@ public class LinkedListDeque<Barca> {
         sentinel.pre = last.pre;
         return last.item;
     }
-    public Barca get(int index){
+    public T get(int index){
         if(index > size - 1){
             return null;
         }
@@ -85,7 +85,7 @@ public class LinkedListDeque<Barca> {
         }
         return p.next.item;
     }
-    public Barca getRecursive(int index){
+    public T getRecursive(int index){
         if(index > size - 1){
             return null;
         }
