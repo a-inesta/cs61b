@@ -130,7 +130,7 @@ public class LinkedListDequeTest {
 		L.addFirst(10);
 		L.addFirst(20);
 		L.addFirst(30);
-		LinkedListDeque<Integer> Q = new LinkedListDeque<>(L);
+		LinkedListDeque<Integer> Q = new LinkedListDeque<>();
 		Q.printDeque();
 	}
 } 

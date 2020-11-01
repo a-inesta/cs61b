@@ -6,15 +6,15 @@ public class ArrayDeque<T> {
     private int nextFirst = 3;
     public ArrayDeque(){
     }
-    public ArrayDeque(ArrayDeque other){
-        this.size = other.size;
-        this.r = other.r;
-        this.nextFirst = other.nextFirst;
-        this.nextLast = other.nextLast;
-        T[] temps = (T[]) new Object[other.items.length];
-        System.arraycopy(other.items,0,temps,0,other.items.length);
-        items = temps;
-    }
+//    public ArrayDeque(ArrayDeque other){
+//        this.size = other.size;
+//        this.r = other.r;
+//        this.nextFirst = other.nextFirst;
+//        this.nextLast = other.nextLast;
+//        T[] temps = (T[]) new Object[other.items.length];
+//        System.arraycopy(other.items,0,temps,0,other.items.length);
+//        items = temps;
+//    }
     /**
      * Get the item at the pos index, if pos is illegal return -1;
      * @param pos
@@ -41,7 +41,6 @@ public class ArrayDeque<T> {
         }
         return val;
     }
-
     /**
      * Remove the first item of the array and dec size.
      * @return
@@ -79,7 +78,6 @@ public class ArrayDeque<T> {
     public int size(){
         return size;
     }
-
     /**
      * Print the elements stored in the Deque.
      */
@@ -118,10 +116,9 @@ public class ArrayDeque<T> {
             resize(items.length * 3 / 2);
         }
     }
-    public void calR(){
+    private void calR(){
         r = (double)size/items.length;
     }
-
     /**
      * Resize the items[] to the set capacity.
      * @param capacity:the length of the new items[] array
