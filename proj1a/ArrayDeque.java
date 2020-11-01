@@ -20,10 +20,11 @@ public class ArrayDeque<T> {
     /**
      * Get the item at the pos index, if pos is illegal return -1;
      *
-     * @param pos
+     * @param index : the position of the item in the queue relatively
      * @return
      */
-    public T get(int pos) {
+    public T get(int index) {
+        int pos = plusOne(index + nextFirst);
         return items[pos];
     }
 
@@ -112,7 +113,7 @@ public class ArrayDeque<T> {
         nextLast = plusOne(nextLast);
         size += 1;
         calR();
-        if (r > 0.75) {
+        if (r > 0.7) {
             resize(items.length * 3 / 2);
         }
     }
@@ -125,7 +126,7 @@ public class ArrayDeque<T> {
         nextFirst = minusOne(nextFirst);
         size += 1;
         calR();
-        if (r > 0.75) {
+        if (r > 0.7) {
             resize(items.length * 3 / 2);
         }
     }
@@ -141,8 +142,8 @@ public class ArrayDeque<T> {
      */
     private void resize(int capacity) {
         T[] temps = (T[]) new Object[capacity];
-        if (minusOne(nextFirst) > nextLast) {
-            System.arraycopy(items, nextFirst, temps, 0, size);
+        if (minusOne(nextFirst) < nextLast) {
+            System.arraycopy(items, nextFirst, temps, 0, size + 1);
         } else {
             System.arraycopy(items, nextFirst, temps, 0, size - nextLast + 1);
             System.arraycopy(items, 0, temps, size - nextLast + 1, nextLast);
@@ -150,7 +151,6 @@ public class ArrayDeque<T> {
         items = temps;
         nextLast = size + 1;
         nextFirst = 0;
-        return;
     }
 
     private int minusOne(int pos) {
