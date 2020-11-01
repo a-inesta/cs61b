@@ -3,23 +3,11 @@ public class LinkedListDeque<T> {
     private final ListNode sentinel;
 
     public LinkedListDeque() {
-        sentinel = new ListNode(null,null,null);
+        sentinel = new ListNode(null, null, null);
         sentinel.next = sentinel;
         sentinel.pre = sentinel;
     }
 
-    //    public LinkedListDeque(LinkedListDeque other){
-//        sentinel.next = sentinel;
-//        sentinel.pre = sentinel;
-//        ListNode q = other.sentinel.pre;
-//        while (q != other.sentinel){
-//            ListNode start = new ListNode(sentinel, q.item, sentinel.next);
-//            sentinel.next = start;
-//            start.next.pre = start;
-//            size += 1;
-//            q = q.pre;
-//        }
-//    }
     private class ListNode {
         public ListNode pre;
         public T item;
@@ -104,12 +92,13 @@ public class LinkedListDeque<T> {
             return null;
         }
         ListNode p = sentinel.next;
-        return getHelper(p,index);
+        return getHelper(p, index);
     }
-    private T getHelper(ListNode N, int index){
-        if(index == 0){
+
+    private T getHelper(ListNode N, int index) {
+        if (index == 0) {
             return N.item;
         }
-        return  getHelper(N.next,index - 1);
+        return getHelper(N.next, index - 1);
     }
 }

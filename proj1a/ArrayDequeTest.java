@@ -7,6 +7,7 @@ public class ArrayDequeTest {
         }
         return true;
     }
+
     /* Utility method for printing out empty checks. */
     public static boolean checkSize(int expected, int actual) {
         if (expected != actual) {
@@ -15,6 +16,7 @@ public class ArrayDequeTest {
         }
         return true;
     }
+
     public static boolean checkRemove(int expected, int actual) {
         if (expected != actual) {
             System.out.println("removeLast() returned " + actual + ", but expected: " + expected);
@@ -22,6 +24,7 @@ public class ArrayDequeTest {
         }
         return true;
     }
+
     public static boolean checkGet(int expected, int actual) {
         if (expected != actual) {
             System.out.println("get() returned " + actual + ", but expected: " + expected);
@@ -29,6 +32,7 @@ public class ArrayDequeTest {
         }
         return true;
     }
+
     /* Prints a nice message based on whether a test passed.
      * The \n means newline. */
     public static void printTestStatus(boolean passed) {
@@ -38,10 +42,13 @@ public class ArrayDequeTest {
             System.out.println("Test failed!\n");
         }
     }
-    /** Adds a few things to the list, checking isEmpty() and size() are correct,
+
+    /**
+     * Adds a few things to the list, checking isEmpty() and size() are correct,
      * finally printing the results.
-     *
-     * && is the "and" operation. */
+     * <p>
+     * && is the "and" operation.
+     */
     public static void addIsEmptySizeTest() {
         System.out.println("Running add/isEmpty/Size test.");
         System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
@@ -84,6 +91,7 @@ public class ArrayDequeTest {
         printTestStatus(passed);
 
     }
+
     public static void addRemoveTest() {
 
         System.out.println("Running add/remove test.");
@@ -99,7 +107,7 @@ public class ArrayDequeTest {
         // should not be empty
         passed = checkEmpty(false, ald1.isEmpty()) && passed;
         for (int i = 0; i < 9; i++) {
-            passed = checkRemove(8 - i,ald1.removeFirst()) && passed;
+            passed = checkRemove(8 - i, ald1.removeFirst()) && passed;
         }
         // should be empty
         passed = checkEmpty(true, ald1.isEmpty()) && passed;
@@ -107,6 +115,7 @@ public class ArrayDequeTest {
         printTestStatus(passed);
 
     }
+
     public static void addRemoveTest1000() {
 
         System.out.println("Running add/remove test 1000th.");
@@ -118,7 +127,7 @@ public class ArrayDequeTest {
         boolean passed = checkEmpty(true, ald1.isEmpty());
 
         for (int i = 0; i < 1000; i++) {
-            ald1.addFirst(i+1);
+            ald1.addFirst(i + 1);
         }
         // should not be empty
         passed = checkEmpty(false, ald1.isEmpty()) && passed;
