@@ -8,9 +8,9 @@ public class TestPalindrome {
     static CharacterComparator cc = new OffByOne();
     @Test
     public void testWordToDeque() {
-        Deque d = palindrome.wordToDeque("");
-        String actual = "";
-        for (int i = 0; i < "".length(); i++) {
+        Deque d = palindrome.wordToDeque("synergy");
+        String actual = "synergy";
+        for (int i = 0; i < "synergy".length(); i++) {
             actual += d.removeFirst();
         }
         assertEquals("", actual);
@@ -31,7 +31,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("flake", cc));
     }
 
-    @Test
+    /*@Test
     public void testIsPalindromeNR() {
         String input1 = "noon";
         String input2 = "aaaaaab";
@@ -41,5 +41,5 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindromeNR(input2));
         assertTrue(palindrome.isPalindromeNR(input3));
         assertTrue(palindrome.isPalindromeNR(input4));
-    }
+    }*/
 }
