@@ -24,7 +24,7 @@ public class TestArrayDequeGold {
 
         sad1.addFirst(5);
         sad1.addFirst(3);
-        Integer expected = 7;
+        Integer expected = 3;
         Integer actual = sad1.removeFirst();
         assertEquals("Oh noooo!\nThis is bad:\n   Random number " + actual
                 + " not equal to " + expected + "!", expected, actual);
