@@ -83,4 +83,8 @@ public class TestArrayMap {
         b.put("hi", 1);
         assertTrue(b.containsKey("hi") && b.get("hi") != null);
     }
+    @Test
+    public void sanityKeySetTest() {
+
+    }
 }
