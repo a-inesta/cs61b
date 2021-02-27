@@ -3,12 +3,13 @@ package byog.Core;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 
+import java.util.Random;
+
 public class Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
-    public static final int WIDTH = 80;
-    public static final int HEIGHT = 30;
-
+    public static final int WIDTH = 80 + 1;
+    public static final int HEIGHT = 60 + 1;
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
@@ -31,8 +32,21 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
-
-        TETile[][] finalWorldFrame = null;
-        return finalWorldFrame;
+        if(input.length() < 2 || input.charAt(0) != 'N' || input.charAt(input.length()-1) != 'S'){
+            return null;
+        }
+        long seed = seed(input);
+        Random rand = new Random(seed);
+        MapGenerator mg = new MapGenerator(rand, WIDTH, HEIGHT);
+        mg.initWorld();
+        ter.initialize(WIDTH,HEIGHT);
+        ter.renderFrame(mg.world());
+        return mg.world();
     }
+
+    private long seed(String s) {
+        String sub = s.substring(1,s.length() - 2);
+        return  Long.parseLong(sub);
+    }
+
 }
