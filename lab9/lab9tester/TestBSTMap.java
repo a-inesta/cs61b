@@ -86,6 +86,7 @@ public class TestBSTMap {
         assertTrue(b.get("hi") != null);
     }
 
+
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(TestBSTMap.class);
     }
