@@ -1,4 +1,5 @@
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -28,7 +29,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int leftIndex(int i) {
         /* TODO: Your code here! */
-        return 2*i;
+        return 2 * i;
     }
 
     /**
@@ -36,7 +37,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int rightIndex(int i) {
         /* TODO: Your code here! */
-        return 2*i + 1;
+        return 2 * i + 1;
     }
 
     /**
@@ -44,7 +45,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     private static int parentIndex(int i) {
         /* TODO: Your code here! */
-        return i/2;
+        return i / 2;
     }
 
     /**
@@ -115,11 +116,11 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
          * 3.继续向上冒泡 Continue bubbles up as index of “index/2”.
          * */
 
-        if (index == 1 || contents[index].priority() > contents[index/2].priority()) {
+        if (index == 1 || contents[index].priority() > contents[index / 2].priority()) {
             return;
         }
-        swap(index,index/2);
-        swim(index/2);
+        swap(index, index / 2);
+        swim(index / 2);
     }
 
     /**
@@ -144,7 +145,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if (contents[index].priority() < contents[min].priority()) {
             return;
         }
-        swap(min,index);
+        swap(min, index);
         sink(min);
     }
 
@@ -160,10 +161,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         }
 
         /* 首先，插入操作会使size++
-        *  其次，将新元素放入size位置，上浮它到合适位置
-        *  */
+         *  其次，将新元素放入size位置，上浮它到合适位置
+         *  */
         size++;
-        contents[size] = new Node(item,priority);
+        contents[size] = new Node(item, priority);
         swim(size);
     }
 
@@ -174,7 +175,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T peek() {
         /* TODO: Your code here! */
-        return getNode(1) == null ? null:contents[1].item();
+        return getNode(1) == null ? null : contents[1].item();
     }
 
     /**
@@ -189,15 +190,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
-        if (contents[1] == null){
+        if (contents[1] == null) {
             return null;
         }
         Node val = contents[1];
-        if (size == 1) {
-            contents[1] = null;
-            size--;
-            return val.item();
-        }
         contents[1] = contents[size];
         contents[size] = null;
         size--;
@@ -290,7 +286,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             myPriority = priority;
         }
 
-        public T item(){
+        public T item() {
             return myItem;
         }
 
@@ -305,7 +301,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     }
 
 
-    /** Helper function to resize the backing array when necessary. */
+    /**
+     * Helper function to resize the backing array when necessary.
+     */
     private void resize(int capacity) {
         Node[] temp = new ArrayHeap.Node[capacity];
         for (int i = 1; i < this.contents.length; i++) {
@@ -483,7 +481,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         pq.insert("c", 3);
         pq.insert("d", 4);
         System.out.println(pq);
-        pq.changePriority("d",0);
+        pq.changePriority("d", 0);
 
         System.out.println("pq after removeMin");
         System.out.println(pq);
