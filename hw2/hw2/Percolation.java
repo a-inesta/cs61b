@@ -27,15 +27,22 @@ public class Percolation {
         }
         openSitesNum = 0;
         uf = new WeightedQuickUnionUF(N*N + 2);
-        for (int i = 0; i < N; i++) {
-            uf.union(i, virtualTop());
-            uf.union((N-1) * N + i, virtualBottom());
-        }
     }
 
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
-        validArguments(row, col);
+        if(isOpen(row,col)) return;
+        try {
+            validArguments(row, col);
+        } catch (IndexOutOfBoundsException e) {
+            return;
+        }
+        if (row == 0) {
+            uf.union(col, virtualTop());
+        }
+        if (row == N - 1) {
+            uf.union(row * N + col, virtualBottom());
+        }
         grid[row][col] = true;
         this.openSitesNum += 1;
         if(isOpen(row - 1, col)) {
