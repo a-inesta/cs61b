@@ -1,4 +1,5 @@
 package hw2;
+
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
 
@@ -10,6 +11,7 @@ public class PercolationStats {
     private int[] count;
     private double mean;
     private double stddev;
+
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException();
@@ -31,30 +33,35 @@ public class PercolationStats {
         this.mean = StdStats.mean(count);
         this.stddev = StdStats.stddev(count);
     }
+
     private int totalOpenSites(Percolation p) {
         while (!p.percolates()) {
             p.open(StdRandom.uniform(N), StdRandom.uniform(N));
         }
         return p.numberOfOpenSites();
     }
+
     public double mean() {
         return this.mean;
     }
+
     // sample standard deviation of percolation threshold
     public double stddev() {
         return this.stddev;
     }
+
     // low endpoint of 95% confidence interval
     public double confidenceLow() {
         return mean - 1.96 * stddev / Math.sqrt((double) T);
     }
+
     // high endpoint of 95% confidence interval
     public double confidenceHigh() {
         return mean + 1.96 * stddev / Math.sqrt((double) T);
     }
 
     public static void main(String[] args) {
-        PercolationStats p = new PercolationStats(2,10000,new PercolationFactory());
+        PercolationStats p = new PercolationStats(2, 10000, new PercolationFactory());
         System.out.println(p.mean);
         System.out.println(p.stddev);
     }

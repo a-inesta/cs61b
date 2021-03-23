@@ -89,11 +89,11 @@ public class Percolation {
             return true;
         }
         for (int i = 0; i < N; i++) {
-            if (isFull(N-1,i)) {
-                uf.union((N-1) * N + i, virtualBottom());
+            if (isFull(N - 1, i)) {
+                uf.union((N - 1) * N + i, virtualBottom());
             }
         }
-        return uf.connected(virtualTop(),virtualBottom());
+        return uf.connected(virtualTop(), virtualBottom());
     }
 
     private void validArguments(int row, int col) {
