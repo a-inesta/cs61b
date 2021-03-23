@@ -1,7 +1,6 @@
 package hw2;
 import edu.princeton.cs.introcs.StdRandom;
 import edu.princeton.cs.introcs.StdStats;
-import java.util.Random;
 
 public class PercolationStats {
     // perform T independent experiments on an N-by-N grid
@@ -12,7 +11,9 @@ public class PercolationStats {
     private double mean;
     private double stddev;
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        if (N <= 0 || T <= 0) throw new IllegalArgumentException();
+        if (N <= 0 || T <= 0) {
+            throw new IllegalArgumentException();
+        }
         this.N = N;
         this.T = T;
         this.pf = pf;
@@ -31,7 +32,7 @@ public class PercolationStats {
         this.stddev = StdStats.stddev(count);
     }
     private int totalOpenSites(Percolation p) {
-        while (p.percolates()) {
+        while (!p.percolates()) {
             p.open(StdRandom.uniform(N), StdRandom.uniform(N));
         }
         return p.numberOfOpenSites();
