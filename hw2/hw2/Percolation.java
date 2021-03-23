@@ -26,18 +26,15 @@ public class Percolation {
 
     // open the site (row, col) if it is not open already
     public void open(int row, int col) {
-        if (isOpen(row, col)) return;
+        if (isOpen(row, col)) {
+            return;
+        }
         try {
             validArguments(row, col);
         } catch (IndexOutOfBoundsException e) {
             return;
         }
-        if (row == 0) {
-            uf.union(col, virtualTop());
-        }
-        if (row == N - 1 && isFull(row, col)) {
-            uf.union(row * N + col, virtualBottom());
-        }
+
         grid[row][col] = true;
         this.openSitesNum += 1;
         if (isOpen(row - 1, col)) {
@@ -52,6 +49,12 @@ public class Percolation {
         if (isOpen(row, col + 1)) {
             uf.union(row * N + col, row * N + col + 1);
         }
+        if (row == 0) {
+            uf.union(col, virtualTop());
+        }
+/*        if (row == N - 1) {
+            uf.union(row * N + col, virtualBottom());
+        }*/
     }
 
     // is the site (row, col) open?
@@ -61,6 +64,7 @@ public class Percolation {
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
+
         return grid[row][col];
     }
 
@@ -81,7 +85,15 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        return uf.connected(virtualTop(), virtualBottom());
+        if (uf.connected(virtualTop(), virtualBottom())) {
+            return true;
+        }
+        for (int i = 0; i < N; i++) {
+            if (isFull(N-1,i)) {
+                uf.union((N-1) * N + i, virtualBottom());
+            }
+        }
+        return uf.connected(virtualTop(),virtualBottom());
     }
 
     private void validArguments(int row, int col) {
