@@ -83,7 +83,7 @@ public class Percolation {
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
-        if(!isOpen(row, col)) {
+        if (!isOpen(row, col)) {
             return false;
         }
         return noBotUF.connected(row * N + col, virtualTop());
