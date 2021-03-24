@@ -10,6 +10,7 @@ public class Percolation {
     private boolean[][] grid;
     private int openSitesNum;
     private WeightedQuickUnionUF uf;
+    private WeightedQuickUnionUF noBotUF;
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
@@ -22,6 +23,10 @@ public class Percolation {
         grid = new boolean[N][N];
         openSitesNum = 0;
         uf = new WeightedQuickUnionUF(N * N + 2);
+        noBotUF = new WeightedQuickUnionUF(N * N + 1);
+        for (int i = 0; i < N; i++) {
+            noBotUF.union(i, virtualTop());
+        }
     }
 
     // open the site (row, col) if it is not open already
@@ -39,22 +44,26 @@ public class Percolation {
         this.openSitesNum += 1;
         if (isOpen(row - 1, col)) {
             uf.union(row * N + col, (row - 1) * N + col);
+            noBotUF.union(row * N + col, (row - 1) * N + col);
         }
         if (isOpen(row + 1, col)) {
             uf.union(row * N + col, (row + 1) * N + col);
+            noBotUF.union(row * N + col, (row + 1) * N + col);
         }
         if (isOpen(row, col - 1)) {
             uf.union(row * N + col, row * N + col - 1);
+            noBotUF.union(row * N + col, row * N + col - 1);
         }
         if (isOpen(row, col + 1)) {
             uf.union(row * N + col, row * N + col + 1);
+            noBotUF.union(row * N + col, row * N + col + 1);
         }
         if (row == 0) {
             uf.union(col, virtualTop());
         }
-/*        if (row == N - 1) {
+        if (row == N - 1) {
             uf.union(row * N + col, virtualBottom());
-        }*/
+        }
     }
 
     // is the site (row, col) open?
@@ -64,7 +73,6 @@ public class Percolation {
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
-
         return grid[row][col];
     }
 
@@ -75,7 +83,10 @@ public class Percolation {
         } catch (IndexOutOfBoundsException e) {
             return false;
         }
-        return uf.connected(row * N + col, virtualTop());
+        if(!isOpen(row, col)) {
+            return false;
+        }
+        return noBotUF.connected(row * N + col, virtualTop());
     }
 
     // number of open sites
@@ -85,14 +96,6 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        if (uf.connected(virtualTop(), virtualBottom())) {
-            return true;
-        }
-        for (int i = 0; i < N; i++) {
-            if (isFull(N - 1, i)) {
-                uf.union((N - 1) * N + i, virtualBottom());
-            }
-        }
         return uf.connected(virtualTop(), virtualBottom());
     }
 
