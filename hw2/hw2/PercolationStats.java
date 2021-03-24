@@ -33,10 +33,15 @@ public class PercolationStats {
         this.mean = StdStats.mean(count);
         this.stddev = StdStats.stddev(count);
     }
-
+    //if random site isOpen ,the program will continue instead of calling open().
     private int totalOpenSites(Percolation p) {
         while (!p.percolates()) {
-            p.open(StdRandom.uniform(N), StdRandom.uniform(N));
+            int row = StdRandom.uniform(N);
+            int col = StdRandom.uniform(N);
+            if(p.isOpen(row, col)) {
+                continue;
+            }
+            p.open(row, col);
         }
         return p.numberOfOpenSites();
     }
@@ -61,7 +66,7 @@ public class PercolationStats {
     }
 
     public static void main(String[] args) {
-        PercolationStats p = new PercolationStats(2, 10000, new PercolationFactory());
+        PercolationStats p = new PercolationStats(20, 10, new PercolationFactory());
         System.out.println(p.mean);
         System.out.println(p.stddev);
     }
