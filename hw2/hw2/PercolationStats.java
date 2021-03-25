@@ -8,7 +8,7 @@ public class PercolationStats {
     private int N;
     private int T;
     private PercolationFactory pf;
-    private int[] count;
+    private double[] thresholds;
 
     public PercolationStats(int N, int T, PercolationFactory pf) {
         if (N <= 0 || T <= 0) {
@@ -17,14 +17,14 @@ public class PercolationStats {
         this.N = N;
         this.T = T;
         this.pf = pf;
-        this.count = new int[T];
+        this.thresholds = new double[T];
         simulation();
     }
 
     private void simulation() {
         for (int i = 0; i < T; i++) {
             Percolation p = pf.make(N);
-            count[i] = totalOpenSites(p);
+            thresholds[i] = (double)totalOpenSites(p) / (N * N);
         }
     }
 
@@ -43,12 +43,12 @@ public class PercolationStats {
     }
 
     public double mean() {
-        return StdStats.mean(count);
+        return StdStats.mean(thresholds);
     }
 
     // sample standard deviation of percolation threshold
     public double stddev() {
-        return StdStats.stddev(count);
+        return StdStats.stddev(thresholds);
     }
 
     // low endpoint of 95% confidence interval
