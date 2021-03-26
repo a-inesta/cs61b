@@ -6,10 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class TestSimpleOomage {
@@ -29,6 +26,26 @@ public class TestSimpleOomage {
           meaning no two SimpleOomages should EVER have the same
           hashCode UNLESS they have the same red, blue, and green values!
          */
+        long  startTime = System.currentTimeMillis();//获取开始时间
+
+        List<SimpleOomage> list = new ArrayList<>();
+        for (int i = 0; i < 52; i++) {
+            for (int j = 0; j < 52; j++) {
+                for (int k = 0; k < 52; k++) {
+                    list.add(new SimpleOomage(i*5, j*5, k*5));
+                }
+            }
+        }
+
+        long endTime = System.currentTimeMillis();//获取结束时间
+
+        System.out.println("程序运行时间：" + (endTime - startTime) + "ms");//输出程序运行时间
+
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                assertNotEquals(list.get(i), list.get(j));
+            }
+        }
     }
 
     @Test
@@ -42,7 +59,6 @@ public class TestSimpleOomage {
         assertNotEquals(ooA, "ketchup");
     }
 
-    /*
     @Test
     public void testHashCodeAndEqualsConsistency() {
         SimpleOomage ooA = new SimpleOomage(5, 10, 20);
@@ -50,10 +66,10 @@ public class TestSimpleOomage {
         HashSet<SimpleOomage> hashSet = new HashSet<>();
         hashSet.add(ooA);
         assertTrue(hashSet.contains(ooA2));
-    }*/
+    }
 
     /* TODO: Uncomment this test after you finish haveNiceHashCode Spread in OomageTestUtility */
-    /*@Test
+    @Test
     public void testRandomOomagesHashCodeSpread() {
         List<Oomage> oomages = new ArrayList<>();
         int N = 10000;
@@ -63,7 +79,7 @@ public class TestSimpleOomage {
         }
 
         assertTrue(OomageTestUtility.haveNiceHashCodeSpread(oomages, 10));
-    }*/
+    }
 
     /** Calls tests for SimpleOomage. */
     public static void main(String[] args) {

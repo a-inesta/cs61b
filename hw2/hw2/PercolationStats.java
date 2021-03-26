@@ -24,7 +24,7 @@ public class PercolationStats {
     private void simulation() {
         for (int i = 0; i < T; i++) {
             Percolation p = pf.make(N);
-            thresholds[i] = (double)totalOpenSites(p) / (N * N);
+            thresholds[i] = (double) totalOpenSites(p) / (N * N);
         }
     }
 
